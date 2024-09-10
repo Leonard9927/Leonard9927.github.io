@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8"> <!-- Ajusta el zoom con el valor de escala -->
+    <title>Contabilidad de Café Guadalquivir</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            zoom: 1.05; 
+        }
+        .logo {
+            max-width: 150px; 
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            font-size: 2rem; 
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+            font-size: 1rem; 
+            margin-bottom: 30px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; 
+        }
+        button {
+            padding: 10px 20px; 
+            font-size: 0.9rem; 
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem; 
+            }
+            p {
+                font-size: 0.9rem; 
+            }
+            button {
+                padding: 8px 15px; 
+                font-size: 0.8rem; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="Logo Guadalquivir.png" alt="Logo Café Guadalquivir" class="logo">
+    <h1>Bienvenido a Contabilidad de Café Guadalquivir</h1>
+    <p>Seleccione una opción para continuar:</p>
+    <div class="options">
+        <button onclick="window.location.href='encargado_finanzas.html'">1.- Ingresar como encargado de finanzas</button>
+        <button onclick="window.location.href='ingresar_desde_gerencia.html'">2.- Ingresar desde gerencia</button>
+        <button onclick="window.location.href='ingreso_contraseña.html'">3.- Ingresar como ayudante de gerencia</button>
+        <button onclick="window.location.href='seleccion_de_gerente.html'">4.- Consultar finanzas </button
+    </div>
+
+    <script>
+        function seleccionarOpcion(opcion) {
+            switch(opcion) {
+                case 4:
+                    alert("Has seleccionado: Consultar finanzas");
+                    break;
+                    default:
+                    alert("Opción no válida");
+            }
+        }
+    </script>
+</body>
+</html>

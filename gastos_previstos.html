@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastos Previstos (Despensa) - Café Guadalquivir</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            transform: scale(0.89);
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        .message-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .message-container h2 {
+            color: #333;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .button-container button {
+            background-color: #008CBA;
+        }
+        .button-container button[disabled] {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container" id="form-container">
+        <h1>Gastos Previstos (Despensa)</h1>
+        <form id="gastosPrevistosForm">
+            <div class="form-group">
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="form-group">
+                <label for="importe">Importe:</label>
+                <input type="number" id="importe" name="importe" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="tienda">Tienda:</label>
+                <select id="tienda" name="tienda" required onchange="mostrarCampoEspecificarTienda()">
+                    <option value="">Seleccione una tienda</option>
+                    <option value="walmart">Walmart</option>
+                    <option value="costco">Costco</option>
+                    <option value="mercadoLibre">Mercado Libre</option>
+                    <option value="amazon">Amazon</option>
+                    <option value="panaderiaCacaoCinco">Panadería Cacao Cinco</option>
+                    <option value="cremeriaLaEsperanza">Cremería La Esperanza</option>
+                    <option value="laMimi">La Mimi</option>
+                    <option value="otra">Otra</option>
+                </select>
+            </div>
+            <div id="especificarTiendaDesc" class="form-group hidden">
+                <label for="especificarTienda">Especificar:</label>
+                <input type="text" id="especificarTienda" name="especificarTienda">
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="fuentePago">Fuente de pago:</label>
+                <select id="fuentePago" name="fuentePago" required onchange="mostrarCampoEspecificarFuente()">
+                    <option value="">Seleccione una fuente de pago</option>
+                    <option value="corteEfectivo">Sobre de cortes efectivo</option>
+                    <option value="tarjetaCredito">Tarjeta Credito Guadalquivir</option>
+                    <option value="otros">Otros</option>
+                </select>
+            </div>
+            <div id="especificarFuenteDesc" class="form-group hidden">
+                <label for="especificarFuente">Especificar:</label>
+                <input type="text" id="especificarFuente" name="especificarFuente">
+            </div>
+            <div class="form-group">
+                <label for="ticket">Anexar ticket (opcional):</label>
+                <input type="file" id="ticket" name="ticket" accept="image/*,.pdf">
+            </div>
+            <button type="submit">Guardar Datos</button>
+        </form>
+    </div>
+
+    <div class="message-container hidden" id="message-container">
+        <h2>Datos Guardados Correctamente</h2>
+        <div class="button-container">
+            <button onclick="window.location.href='index.html'">Volver al Menú Principal</button>
+            
+        </div>
+    </div>
+
+    <script>
+        function mostrarCampoEspecificarTienda() {
+            var tienda = document.getElementById('tienda').value;
+            var especificarTiendaDesc = document.getElementById('especificarTiendaDesc');
+            if (tienda === 'otra') {
+                especificarTiendaDesc.classList.remove('hidden');
+            } else {
+                especificarTiendaDesc.classList.add('hidden');
+            }
+        }
+
+        function mostrarCampoEspecificarFuente() {
+            var fuentePago = document.getElementById('fuentePago').value;
+            var especificarFuenteDesc = document.getElementById('especificarFuenteDesc');
+            if (fuentePago === 'otros') {
+                especificarFuenteDesc.classList.remove('hidden');
+            } else {
+                especificarFuenteDesc.classList.add('hidden');
+            }
+        }
+
+        function consultarFinanzas() {
+            
+        }
+
+        document.getElementById('gastosPrevistosForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('form-container').classList.add('hidden');
+            document.getElementById('message-container').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
+

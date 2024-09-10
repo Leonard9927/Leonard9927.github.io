@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar como Ayudante de Gerencia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Ingresar como Ayudante de Gerencia</h1>
+        <p>Para continuar, ingresa la contraseña:</p>
+        <input type="password" id="password" placeholder="Contraseña">
+        <div class="error" id="error">Contraseña incorrecta, inténtalo de nuevo.</div>
+        <button onclick="verificarContraseña()">Ingresar</button>
+    </div>
+
+    <script>
+        function verificarContraseña() {
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('error');
+
+            if (password === 'dirtychai') {
+                window.location.href = 'captura_gastos2.html'; 
+            } else {
+                error.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
+
+

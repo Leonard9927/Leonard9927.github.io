@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccióna un Gerente para continuar - Cafe Guadalquivir</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        .error {
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Seleccione un gerente para continuar</h1>
+        <form id="gerenciaForm">
+            <div class="form-group">
+                <label for="gerente">Seleccione un gerente:</label>
+                <select id="gerente" name="gerente" required>
+                    <option value="">Seleccione un gerente</option>
+                    <option value="Hayde">Hayde</option>
+                    <option value="Guadalupe">Guadalupe</option>
+                </select>
+            </div>
+            <div class="form-group hidden" id="passwordGroup">
+                <label for="password">Contraseña de Gerencia para <span id="gerenteNombre"></span>:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div id="error" class="error">Contraseña incorrecta. Inténtelo de nuevo.</div>
+            <button type="submit">Continuar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('gerente').addEventListener('change', function() {
+            var gerente = document.getElementById('gerente').value;
+            var passwordGroup = document.getElementById('passwordGroup');
+            var gerenteNombre = document.getElementById('gerenteNombre');
+
+            if (gerente) {
+                gerenteNombre.textContent = gerente;
+                passwordGroup.classList.remove('hidden');
+            } else {
+                passwordGroup.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('gerenciaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var gerente = document.getElementById('gerente').value;
+            var password = document.getElementById('password').value;
+            var error = document.getElementById('error');
+
+            if ((gerente === 'Hayde' && password === 'haydegerencia12') || (gerente === 'Guadalupe' && password === 'guadalupegerencia13')) {
+                window.location.href = "consultar_por_dia_o_periodo.html?gerente=" + encodeURIComponent(gerente);
+            } else {
+                error.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

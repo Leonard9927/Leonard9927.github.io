@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>Captura de Ventas - Café Guadalquivir</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            transform: scale(0.89);
+            
+  
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        .message-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .message-container h2 {
+            color: #333;
+        }
+        .buttons-container {
+            margin-top: 20px;
+        }
+        .buttons-container button {
+            background-color: #007BFF;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container" id="formContainer">
+        <h1>Captura de Ventas</h1>
+        <form id="ventasForm">
+
+            <!-- Nuevo formulario de Fecha de la Venta -->
+            <div class="form-group">
+                <label for="fechaVenta">Fecha de la Venta:</label>
+                <input type="date" id="fechaVenta" name="fechaVenta" required>
+            </div>
+
+            <div class="form-group">
+                <label for="turno">Turno de la venta:</label>
+                <select id="turno" name="turno" required onchange="mostrarCampoEvento()">
+                    <option value="">Seleccione un turno</option>
+                    <option value="mañana">1.- Turno de la mañana</option>
+                    <option value="tarde">2.- Turno de la tarde</option>
+                    <option value="unico">3.- Venta de un solo turno</option>
+                    <option value="evento">4.- Ventas de evento</option>
+                </select>
+            </div>
+
+            <div id="eventoDesc" class="hidden">
+                <label for="descripcionEvento">Descripción del evento:</label>
+                <textarea id="descripcionEvento" name="descripcionEvento" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="ventasEfectivo">Ventas en efectivo:</label>
+                <input type="number" id="ventasEfectivo" name="ventasEfectivo" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ventasTarjeta">Ventas en Tarjeta:</label>
+                <input type="number" id="ventasTarjeta" name="ventasTarjeta" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="propinasTarjeta">Propinas en Tarjeta:</label>
+                <input type="number" id="propinasTarjeta" name="propinasTarjeta" step="0.01">
+            </div>
+
+            <div class="form-group">
+                <label for="ventasTransferencia">Ventas con Transferencia:</label>
+                <input type="number" id="ventasTransferencia" name="ventasTransferencia" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ventasTotales">Ventas Totales:</label>
+                <input type="number" id="ventasTotales" name="ventasTotales" step="0.01" readonly>
+            </div>
+
+            <button type="submit">Guardar Ventas</button>
+        </form>
+    </div>
+
+    <div class="message-container hidden" id="messageContainer">
+        <h2>Datos Guardados correctamente</h2>
+        <div class="buttons-container">
+            <button onclick="window.location.href='index.html'">1.- Volver al Menú principal</button>
+        </div>
+    </div>
+
+    <script>
+        function mostrarCampoEvento() {
+            var turno = document.getElementById('turno').value;
+            var eventoDesc = document.getElementById('eventoDesc');
+            if (turno === 'evento') {
+                eventoDesc.classList.remove('hidden');
+            } else {
+                eventoDesc.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('ventasEfectivo').addEventListener('input', calcularVentasTotales);
+        document.getElementById('ventasTarjeta').addEventListener('input', calcularVentasTotales);
+        document.getElementById('ventasTransferencia').addEventListener('input', calcularVentasTotales);
+
+        function calcularVentasTotales() {
+            var ventasEfectivo = parseFloat(document.getElementById('ventasEfectivo').value) || 0;
+            var ventasTarjeta = parseFloat(document.getElementById('ventasTarjeta').value) || 0;
+            var ventasTransferencia = parseFloat(document.getElementById('ventasTransferencia').value) || 0;
+
+            var ventasTotales = ventasEfectivo + ventasTarjeta + ventasTransferencia;
+            document.getElementById('ventasTotales').value = ventasTotales.toFixed(2);
+        }
+
+        document.getElementById('ventasForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('formContainer').classList.add('hidden');
+            document.getElementById('messageContainer').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
